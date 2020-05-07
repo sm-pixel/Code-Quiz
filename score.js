@@ -1,5 +1,8 @@
-// Stop timer or answers all questions to end game
+//Store Name and Score to display for Highscore
+var initalsInput = document.querySelector("#initials-text");
 
-// Store Name and Score to display for Highscore
+var initals = [];
 
-// Reset game
+function renderInitials() {
+    
+}

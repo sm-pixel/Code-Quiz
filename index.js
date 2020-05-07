@@ -58,7 +58,7 @@ function checker(event) {
     render()
 }
 
-//[{intials: "test", score: 12}]
+[{intials: "test", score: 12}]
 
 function render() {
     questionsDiv.innerHTML = "";
@@ -83,6 +83,29 @@ function endGame() {
     clearInterval(timer)
     console.log("end game")
     questionsDiv.textContent = "Game Over!"
+
+    
+    var initialLabel = document.createElement("label");
+    initialLabel.setAttribute("id", "initialLabel");
+    initialLabel.textContent = "Enter your initials: ";
+
+    questionsDiv.appendChild(initialLabel);
+
+   
+    var input = document.createElement("input");
+    input.setAttribute("type", "text");
+    input.setAttribute("id", "initials");
+    input.textContent = "";
+
+    questionsDiv.appendChild(input);
+
+    
+    var submit = document.createElement("button");
+    submit.setAttribute("type", "submit");
+    submit.setAttribute("id", "Submit");
+    submit.textContent = "Submit";
+
+    questionsDiv.appendChild(submit);
 
 }
 
