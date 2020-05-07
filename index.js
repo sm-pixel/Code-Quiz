@@ -1,6 +1,4 @@
-// Start quiz 
-
-// Questions (5-10) & Answers (4 each question)
+// Questions & Answers (4 each question)
 var questionArray = [{
         question: "What is Stanley's wifes name?",
         answers: ["A. Cynthia", "B. Teri", "C. Susan", "D. Melissa"],
@@ -20,9 +18,9 @@ var questionArray = [{
     },
 
     {
-        question: "Finish the jingle... "Give me a Break, give me a break, break me of a piece of that...."",
-        answers: ["A. Fancy feast", "B. Football cream", "C. Apple sauce", "D. Chrysler car"],
-        correct: "A. Fancy feast"
+        question: "What does Dwight keep a in his car for special occasions?",
+        answers: ["A. Birkenstocks", "B. Chuck Taylor's", "C. Hairbrush", "D. Altoids"],
+        correct: "A. Birkenstocks"
     },
 
     {
@@ -34,10 +32,78 @@ var questionArray = [{
 
 // Variables for score and timer
 var score = 0;
-var currentQuestion = -1;
-var timeLeft = 0;
+var currentQuestion = 0;
+var timeLeft = 10 * questionArray.length;
+var timerEl = document.querySelector("#timer")
+// Start quiz and move from question to question
 
-// Add 10-20 points for each right answer
+var start = document.querySelector("#startButton");
+var questionsDiv = document.querySelector("#questionsDiv");
+var possibles = document.querySelector("#possiblesDiv");
+
+
+function checker(event) {
+   
+    if(event.target.value === questionArray[currentQuestion].correct){
+        console.log('correct')
+    }else{
+        
+        timeLeft -= 10
+    }
+    currentQuestion++
+    if(currentQuestion === questionArray.length){
+        endGame()
+        return
+    }
+    render()
+}
+
+//[{intials: "test", score: 12}]
+
+function render() {
+    questionsDiv.innerHTML = "";
+    possibles.innerHTML = "";
+    var startQuestion = questionArray[currentQuestion].question;
+    questionsDiv.textContent = startQuestion;
+    
+    
+    for (var i = 0; i < questionArray[currentQuestion].answers.length; i++) {
+        var newButton = document.createElement("button")
+        var newDiv = document.createElement("div")
+        newButton.textContent = questionArray[currentQuestion].answers[i];
+        newButton.setAttribute("class","btn btn-primary btn-lg mb-2 ")
+        newButton.value = questionArray[currentQuestion].answers[i]
+        newButton.onclick = checker
+        newDiv.appendChild(newButton)
+        possibles.appendChild(newDiv)
+    }
+} 
+
+function endGame() {
+    clearInterval(timer)
+    console.log("end game")
+    questionsDiv.textContent = "Game Over!"
+
+}
+
+function startTimer() {
+    timerEl.textContent = "Time: "+ timeLeft 
+    timer = setInterval(function () {
+        timeLeft --
+        timerEl.textContent = "Time: "+ timeLeft 
+        if(timeLeft === 0){
+            endGame()
+        }
+    },1000)
+}
+
+start.addEventListener("click", function(){
+    document.querySelector("#start").innerHTML =""
+    startTimer()
+    render(questionArray);
+});
+
+// Add 20 points for each right answer
 
 // Remove 10-15 seconds for each wrong answer
 
